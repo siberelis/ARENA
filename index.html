@@ -71,7 +71,7 @@
         <h1>Modals</h1>
         <button onclick="Telegram.WebApp.showAlert('Hello World!');">Launch Alert</button>
         <button onclick="showPopup();">Launch Popup</button>
-
+<!-- 
         <h1>Links</h1>
         <ul>
             <li>
@@ -83,7 +83,7 @@
             <li>
                 <a href="javascript:Telegram.WebApp.openLink('https://telegra.ph/api',{try_instant_view:true});">Open link inside Telegram webview</a>
             </li>
-        </ul>
+        </ul> -->
 
         <h1>Buttons</h1>
         <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
@@ -169,11 +169,11 @@
     <div>
        
       
-      <canvas id="synth"></canvas>
+      <canvas id="synth" hidden></canvas>
       
       <canvas id="three" width=200 height=200
           style=" position: absolute;
-          left: 50%; top: 10%; transform: translate(-50%, 0);
+          left: 50%; top: 0; transform: translate(-50%, 0);
           z-index: 2;
           border:3px solid #d3d3d3; border-radius: 40px"></canvas>
        
