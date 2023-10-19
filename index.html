@@ -104,10 +104,10 @@
 
         // Show main button
         Telegram.WebApp.MainButton.setParams({
-            text: 'Main Button'
+            text: 'Хочу в Лес по Грибы'
         });
         Telegram.WebApp.MainButton.onClick(function () {
-            Telegram.WebApp.showAlert('Main Button was clicked')
+            Telegram.WebApp.showAlert('Встань и Иди')
         });	
         Telegram.WebApp.MainButton.show();
 
@@ -167,21 +167,15 @@
  
 
     <div>
-        <canvas id="bg" 
-        style=" position: absolute; z-index: 0;
-        left: 50%; top: 10%; transform: translate(-50%, 0);
-        background-color: rgb(255, 255, 255); border-radius: 40px"></canvas>
+       
       
-      <canvas id="synth"  
-          style=" position: absolute; z-index: 1;
-          left: 50%; top: 10%; transform: translate(-50%, 0);
-          border:1px solid #d3d3d3; border-radius: 40px"></canvas>
+      <canvas id="synth"></canvas>
       
-      <canvas id="three" 
+      <canvas id="three" width=200 height=200
           style=" position: absolute;
           left: 50%; top: 10%; transform: translate(-50%, 0);
           z-index: 2;
-          border:1px solid #d3d3d3; border-radius: 40px"></canvas>
+          border:3px solid #d3d3d3; border-radius: 40px"></canvas>
        
       </div>
 
