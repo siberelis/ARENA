@@ -182,9 +182,9 @@ const loader = new GLTFLoader();
 
 // SINGLE MODEL LOADER
 
-// new GLTFLoader().load( './muho.glb', function ( gltf ) {
-// const model = gltf.scene;
-// scene.add( model );
+new GLTFLoader().load( './frame.glb', function ( gltf ) {
+const model2 = gltf.scene;
+scene.add( model2 );
 
 // let animations = gltf.animations;
 // if ( animations && animations.length ) {
@@ -195,7 +195,7 @@ const loader = new GLTFLoader();
 
 // animate();
 
-// } );
+} );
 
 
 
