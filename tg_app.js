@@ -8,10 +8,11 @@
 
  // Show main button
  Telegram.WebApp.MainButton.setParams({
-     text: 'Хочу в Лес по Грибы'
+     text: 'Тема'
  });
  Telegram.WebApp.MainButton.onClick(function () {
-     Telegram.WebApp.showAlert('Встань и Иди')
+    toggleButton.addEventListener('click', () => {
+        inverted = !inverted;});
  });	
  Telegram.WebApp.MainButton.show();
 
