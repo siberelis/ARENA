@@ -7,14 +7,14 @@
  });
 
  // Show main button
- Telegram.WebApp.MainButton.setParams({
-     text: 'Тема'
- });
- Telegram.WebApp.MainButton.onClick(function () {
-    toggleButton.addEventListener('click', () => {
-        inverted = !inverted;});
- });	
- Telegram.WebApp.MainButton.show();
+//  Telegram.WebApp.MainButton.setParams({
+//      text: 'Тема'
+//  });
+//  Telegram.WebApp.MainButton.onClick(function () {
+//     toggleButton.addEventListener('click', () => {
+//         inverted = !inverted;});
+//  });	
+//  Telegram.WebApp.MainButton.show();
 
  // Function to call showPopup API
  function showPopup() {
