@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, height=device-height, 
+    initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Interactive Mushroom</title>
     <link type="text/css" rel="stylesheet" href="style.css"> 
@@ -65,18 +66,28 @@
 
 <body>
     <main>
-        <!-- <div align="center">
-            <a href="https://ton.org/"><img width="48" src="./assets/tapps.png" alt="logo of telegram web apps"></a>
-        </div> -->
-
-
-
+        
         <!-- <h1>Modals</h1>
         <button onclick="Telegram.WebApp.showAlert('Hello World!');">Launch Alert</button>
         <button onclick="showPopup();">Launch Popup</button> -->
+        
+            <div class="centered-content">
+               <a href="#" id="model1Link">Красавчик</a>
+               <a href="#" id="model2Link">Ежовик</a>
+               <a href="#" id="model3Link">Веселка</a>
+            </div>
+            <div class="centered-content">
+               <a href="#" id="model4Link">Мейтаке</a>
+               <a href="#" id="model5Link">Кордицепс</a>
+               <a href="#" id="model6Link">Рейши</a>
+            </div>
+            
 
 
-
+            <div class="centered-content">
+                <button style="height:30px;width:180px" id="toggleButton">Тема</button>
+            </div>
+        
 <!-- 
         <h1>Links</h1>
         <ul>
@@ -97,362 +108,64 @@
         <h1>Buttons</h1>
         <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
         <button onclick="toggleMainButton();">Toggle Main Button</button> -->
-
-
-
-
     </main>
+
+
     <!-- <div id="viewport"></div> -->
     <!-- <div id="viewport-params-size"></div>
     <div id="viewport-params-expand"></div> -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        // Init TWA
-        Telegram.WebApp.ready();
+    <script src="tg_app.js"></script>
 
-        // Event occurs whenever theme settings are changed in the user's Telegram app (including switching to night mode).
-        Telegram.WebApp.onEvent('themeChanged', function() {
-            document.documentElement.className = Telegram.WebApp.colorScheme;
-        });
 
-        // Show main button
-        Telegram.WebApp.MainButton.setParams({
-            text: 'Хочу в Лес по Грибы'
-        });
-        Telegram.WebApp.MainButton.onClick(function () {
-            Telegram.WebApp.showAlert('Встань и Иди')
-        });	
-        Telegram.WebApp.MainButton.show();
-
-        // Function to call showPopup API
-        function showPopup() {
-            Telegram.WebApp.showPopup({
-                title: 'Title',
-                message: 'Some message',
-                buttons: [
-                    {id: 'link', type: 'default', text: 'Open ton.org'},
-                    {type: 'cancel'},
-                ]
-            }, function(btn) {
-                if (btn === 'link') {
-                    Telegram.WebApp.openLink('https://ton.org/');
-                }
-            });
-        };
-
-        // Function to toggle main TWA button
-        function toggleMainButton() {
-            if (Telegram.WebApp.MainButton.isVisible) {
-                Telegram.WebApp.MainButton.hide();
-            } else {
-                Telegram.WebApp.MainButton.show();
-            }
-        };
-
-        function setViewportData() {
-            var sizeEl = document.getElementById('viewport-params-size');
-            sizeEl.innerText = 'width: ' + window.innerWidth + ' x ' + 
-                'height: ' + Telegram.WebApp.viewportStableHeight;
-
-            var expandEl = document.querySelector('#viewport-params-expand');
-            expandEl.innerText = 'Is Expanded: ' + (Telegram.WebApp.isExpanded ? 'true' : 'false');
-        }
-
-        Telegram.WebApp.setHeaderColor('secondary_bg_color');
-
-        setViewportData();
-        Telegram.WebApp.onEvent('viewportChanged', setViewportData);
-
-        Telegram.WebApp.onEvent('themeChanged', function() {
-            document.body.setAttribute('style', '--bg-color:' + Telegram.WebApp.backgroundColor);
-        });
-
-    </script>
 
     <!-- Eruda is console for mobile browsers -->
-   
-   
-   
     <!-- <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script> -->
-
-
- 
 
     <div>
        
       
-      <canvas id="synth" hidden></canvas>
+        <canvas id="synth" hidden></canvas>
       
-      <canvas id="three" width=200 height=200
-          style=" position: absolute;
-          left: 50%; top: 0; transform: translate(-50%, 0)"></canvas>
+
+        
+        
+        <canvas id="three" width=window.innerWidth height=window.innerWidth
+        style=" position: relative;
+        left: 50%; top: 0; transform: translate(-50%, 0); 
+        border:5px solid #d3d3d3; border-radius: 40px"></canvas>
        
       </div>
-
-
-		  
+	  
 		  <script src=./hydra-synth.js></script>
-		  <script src=./art_2.js></script>
+		  <script src=./grid.js></script>
 
 
-		
-
-
-		
-		<div id="container"></div>
+	    <div id="container"></div>
 
 
     
   </script>
 		
-		<!-- <div id="info">
-			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - Bloom pass by <a href="http://eduperiment.com" target="_blank" rel="noopener">Prashant Sharma</a> and <a href="https://clara.io" target="_blank" rel="noopener">Ben Houston</a>
-			<br/>
-			Model: <a href="https://blog.sketchfab.com/art-spotlight-primary-ion-drive/" target="_blank" rel="noopener">Primary Ion Drive</a> by
-			<a href="http://mjmurdock.com/" target="_blank" rel="noopener">Mike Murdock</a>, CC Attribution.
-		</div> -->
-
+        <!-- SHIMS FOR IOS -->
         <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.0/dist/es-module-shims.js"></script>
 
+
+        <!-- THREE JS IMPORTMAP -->
 		<script type="importmap">
-  {
-    "imports": {
-      "three": "https://unpkg.com/three@0.157.0/build/three.module.js",
-      "three/addons/": "https://unpkg.com/three@0.157.0/examples/jsm/"
-    }
-  }
-</script>
+        {
+            "imports": {
+            "three": "https://unpkg.com/three@0.157.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.157.0/examples/jsm/"
+            }
+        }
+        </script>
 
-		<script type="module">
+<script type="module" src="./mushes.js"></script>
 
-			import * as THREE from 'three';
 
-			import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-			import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-			import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-			import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-			import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-			import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
-			import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 
-
-			let camera;
-			let composer, renderer, mixer, clock;
-
-			const params = {
-				threshold: 1,
-				strength: 0.5,
-				radius: 0,
-				exposure: 1
-			};
-
-			init();
-
-			function init() {
-
-				const container = document.getElementById( 'three' );
-
-
-				clock = new THREE.Clock();
-
-				renderer = new THREE.WebGLRenderer( {
-					antialias: true,
-					canvas: container,
-					alpha: true 
-				} );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( 500, 500 );
-				renderer.toneMapping = THREE.ReinhardToneMapping;
-			//	container.appendChild( renderer.domElement );
-
-				const scene = new THREE.Scene();
-
-				camera = new THREE.PerspectiveCamera( 50, 500 / 500, 1, 100 );
-				camera.position.set( 0, 0, 10 );
-				scene.add( camera );
-
-
-
-const hydraCanvas = document.getElementById('synth');
-const hydraTexture = new THREE.CanvasTexture(hydraCanvas);
-
-const planeGeometry = new THREE.PlaneGeometry(14, 14);
-const planeMaterial = new THREE.MeshBasicMaterial({ map: hydraTexture, side: THREE.DoubleSide });
-const hydraPlane = new THREE.Mesh(planeGeometry, planeMaterial);
-
-// Move the plane back by 10 units
-hydraPlane.position.z = -2.5;
-//hydraPlane.rotation.y = 1.570796;
-
-
-scene.add(hydraPlane);
-
-
-
-function updateTexture() {
-  hydraTexture.needsUpdate = true;
-  requestAnimationFrame(updateTexture);
-}
-
-updateTexture();
-
-
-
-
-
-
-
-
-//ORBIT CONTROLS
-				const controls = new OrbitControls( camera, renderer.domElement );
-				controls.target.set(0, 0, 0);
-				controls.enableDamping = true;
-				controls.maxPolarAngle = THREE.MathUtils.degToRad(100);
-				controls.minPolarAngle = THREE.MathUtils.degToRad(80);
-				controls.maxAzimuthAngle = THREE.MathUtils.degToRad(10);
-				controls.minAzimuthAngle = THREE.MathUtils.degToRad(-10);
-				controls.minDistance = 6;
-				controls.maxDistance = 8;
-				controls.enableRotate = true; 
-				controls.update();
-    			controls.enablePan = false;
-    		//	controls.enableZoom = false;
-
-			// controls.addEventListener('end', () => {
-			// controls.reset();
-			// });
-
-// LIGHTS
-				scene.add( new THREE.AmbientLight( 0x0076d6 ) );
-
-				const pointLight = new THREE.PointLight( 0x9649f9, 1000 );
-				pointLight.position.set( 0, 15, 0);
-				camera.add( pointLight );
-			
-				const pointLight2 = new THREE.PointLight( 0xda8f32, 1700 );
-				pointLight2.position.set( -15, 0, 0);
-				camera.add( pointLight2 );
-
-				const renderScene = new RenderPass( scene, camera );
-
-				const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
-				bloomPass.threshold = params.threshold;
-				bloomPass.strength = params.strength;
-				bloomPass.radius = params.radius;
-
-
-				
-				const outputPass = new OutputPass();
-
-				composer = new EffectComposer( renderer );
-				composer.addPass( renderScene );
-				composer.addPass( bloomPass );
-				composer.addPass( outputPass );
-
-				// new RGBELoader().load( './sky.hdr', function ( texture ) {
-
-				// 		texture.mapping = THREE.EquirectangularReflectionMapping;
-
-				// 		//scene.background = texture;
-				// 		scene.environment = texture;
-
-				// 		render(); });
-
-
-				new GLTFLoader().load( './mushes.glb', function ( gltf ) {
-
-					const model = gltf.scene;
-
-					scene.add( model );
-
-					// mixer = new THREE.AnimationMixer( model );
-					// const clip = gltf.animations[ 0 ];
-					// mixer.clipAction( clip.optimize() ).play();
-
-					// animate();
-
-
-
-					let animations = gltf.animations;
-       				 if ( animations && animations.length ) {
-       				mixer = new THREE.AnimationMixer( model );
-     				for ( let i = 0; i < animations.length; i ++ ) {
-      				let animation = animations[ i ];
-      				mixer.clipAction( animation ).play(); }	}
-
-
-
-					  animate();
-
-
-
-				} );
-
-				// const gui = new GUI();
-
-				// const bloomFolder = gui.addFolder( 'bloom' );
-
-				// bloomFolder.add( params, 'threshold', 0.0, 1.0 ).onChange( function ( value ) {
-
-				// 	bloomPass.threshold = Number( value );
-
-				// } );
-
-				// bloomFolder.add( params, 'strength', 0.0, 3.0 ).onChange( function ( value ) {
-
-				// 	bloomPass.strength = Number( value );
-
-				// } );
-
-				// gui.add( params, 'radius', 0.0, 1.0 ).step( 0.01 ).onChange( function ( value ) {
-
-				// 	bloomPass.radius = Number( value );
-
-				// } );
-
-				// const toneMappingFolder = gui.addFolder( 'tone mapping' );
-
-				// toneMappingFolder.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
-
-				// 	renderer.toneMappingExposure = Math.pow( value, 4.0 );
-
-				// } );
-
-				window.addEventListener( 'resize', onWindowResize );
-
-			}
-
-			function onWindowResize() {
-
-				const width = window.innerWidth;
-				const height = window.innerHeight;
-
-				camera.aspect = width / height;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( width, height );
-				composer.setSize( width, height );
-
-			}
-
-			function animate() {
-
-				requestAnimationFrame( animate );
-
-				const delta = clock.getDelta();
-
-			
-
-				mixer.update( delta );
-
-		
-
-				composer.render();
-
-			}
-
-		</script>
 
 
 </body>

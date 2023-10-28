@@ -23,6 +23,14 @@ body {
   
 }
 
+
+.centered-content {
+  margin: 0 auto; /* Center horizontally */
+  display: flex;
+    justify-content: center; /* Center horizontally */
+    
+}
+
 a:hover {
   color: rgb(255, 129, 97);
   
