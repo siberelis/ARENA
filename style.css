@@ -8,7 +8,7 @@ body {
 
   background: 
   
-  linear-gradient(rgb(255, 255, 255), rgb(10, 10, 108));
+  linear-gradient(rgb(0, 0, 0), rgb(4, 5, 83));
 
   overflow: hidden;
   margin: 0;
@@ -19,7 +19,7 @@ body {
 
   font-family: Helvetica;
 
-  text-shadow: rgb(126, 255, 233) 0.0em 0.2em 0.1em;
+  /* text-shadow: rgb(126, 255, 233) 0.0em 0.2em 0.1em; */
   
 }
 
@@ -37,7 +37,7 @@ a:hover {
 }
 
 a {
-
+  color: rgb(142, 167, 255);
 margin: 5px;
 
 }

@@ -18,9 +18,9 @@
             color-scheme: var(--tg-color-scheme);
         }
 
-        a {
+        /* a {
             color: var(--tg-theme-link-color);
-        }
+        } */
         #viewport {
             position: fixed;
             left: 0;
@@ -67,9 +67,6 @@
 <body>
     <main>
         
-        <!-- <h1>Modals</h1>
-        <button onclick="Telegram.WebApp.showAlert('Hello World!');">Launch Alert</button>
-        <button onclick="showPopup();">Launch Popup</button> -->
         
             <div class="centered-content">
                <a href="#" id="model1Link">Красавчик</a>
@@ -84,56 +81,27 @@
             
 
 
-            <div class="centered-content">
+            <!-- <div class="centered-content">
                 <button style="height:30px;width:180px" id="toggleButton">Тема</button>
-            </div>
-        
-<!-- 
-        <h1>Links</h1>
-        <ul>
-            <li>
-                <a href="javascript:Telegram.WebApp.openTelegramLink('https://t.me/trendingapps');">Open link within Telegram</a>
-            </li>
-            <li>
-                <a href="javascript:Telegram.WebApp.openLink('https://ton.org/');">Open link in external browser</a>
-            </li>
-            <li>
-                <a href="javascript:Telegram.WebApp.openLink('https://telegra.ph/api',{try_instant_view:true});">Open link inside Telegram webview</a>
-            </li>
-        </ul> -->
+            </div>  -->
 
-
-
-<!-- 
-        <h1>Buttons</h1>
-        <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
-        <button onclick="toggleMainButton();">Toggle Main Button</button> -->
     </main>
 
-
-    <!-- <div id="viewport"></div> -->
-    <!-- <div id="viewport-params-size"></div>
-    <div id="viewport-params-expand"></div> -->
-   
-
-
-
-    <!-- Eruda is console for mobile browsers -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-    <script>eruda.init();</script> -->
 
     <div>
        
       
         <canvas id="synth" hidden></canvas>
       
-
-        
+        <canvas id="bg" width=window.innerWidth height=window.innerWidth
+        style=" position: absolute;
+        left: 50%; top: 30; transform: translate(-50%, 0); 
+        border:0px solid #d3d3d3; border-radius: 40px"></canvas>
         
         <canvas id="three" width=window.innerWidth height=window.innerWidth
-        style=" position: relative;
-        left: 50%; top: 0; transform: translate(-50%, 0); 
-        border:3px solid #d3d3d3; border-radius: 40px"></canvas>
+        style=" position: absolute;
+        left: 50%; top: 30; transform: translate(-50%, 0); 
+        border:0px solid #d3d3d3; border-radius: 40px"></canvas>
        
       </div>
 	  
@@ -141,8 +109,9 @@
 		  <script src=./grid.js></script>
 
 
-	    <div id="container"></div>
+	  
 
+        <script src=./bg_image.js></script>
 
     
   </script>
@@ -157,14 +126,21 @@
             "imports": {
             "three": "https://unpkg.com/three@0.157.0/build/three.module.js",
             "three/addons/": "https://unpkg.com/three@0.157.0/examples/jsm/"
-            }
+             }
         }
         </script>
 
-<script type="module" src="./mushes.js"></script>
+        <script src="./postprocessing.js"></script>
+
+<script type="module" src="./mushes_2.js"></script>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="tg_app.js"></script>
+
+
+<!-- <img src="spark.png" height=7% style="bottom: 600px; left: 55px; position: absolute"></img>
+<img src="mishen.png" height=7% style="bottom: 530px; left: 50px; position: absolute"></img>
+<img src="light.png" height=7% style="bottom: 450px; left: 48px; position: absolute"></img> -->
 
 
 
