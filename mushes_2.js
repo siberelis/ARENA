@@ -15,7 +15,7 @@ let composer, renderer, mixer, clock;
    const loadingScreen = document.getElementById('loading-screen');
    const progressBarContainer = document.getElementById('progress-bar-container');
    const progressBar = document.getElementById('progress-bar');
-   const container = document.getElementById('container');
+  
 
 
 //    container.appendChild( renderer.domElement );
@@ -144,7 +144,34 @@ composer.addPass( renderScene );
 composer.addPass( bloomPass );
 composer.addPass( outputPass );
 
-new RGBELoader().load( './sky.hdr', function ( texture ) {
+
+
+
+  // Create a LoadingManager
+  const loadingManager = new THREE.LoadingManager(
+    // OnProgress callback is called for each loaded item
+    (item, loaded, total) => {
+      // Calculate the loading progress percentage
+      const progress = loaded / total;
+      // Update the width of the progress bar
+      progressBar.style.width = `calc(${progress * 100}% - 1px)`;
+    },
+    // OnLoad callback is called when all resources are loaded
+    () => {
+      // Hide the loading screen and progress bar
+      loadingScreen.style.display = 'none';
+      progressBarContainer.style.display = 'none';
+      // Show the container
+      //container.style.display = 'block';
+    }
+  );
+
+
+
+
+
+
+new RGBELoader(loadingManager).load( './sky.hdr', function ( texture ) {
 
 		texture.mapping = THREE.EquirectangularReflectionMapping;
         
@@ -153,41 +180,6 @@ new RGBELoader().load( './sky.hdr', function ( texture ) {
 		scene.environment = texture;
         
 		render(); });
-
-
-
-
-
-
-
-
-    // Create a LoadingManager
-    const loadingManager = new THREE.LoadingManager(
-        // OnProgress callback is called for each loaded item
-        (item, loaded, total) => {
-          // Calculate the loading progress percentage
-          const progress = loaded / total;
-          // Update the width of the progress bar
-          progressBar.style.width = `${progress * 100}%`;
-        },
-        // OnLoad callback is called when all resources are loaded
-        () => {
-          // Hide the loading screen and progress bar
-          loadingScreen.style.display = 'none';
-          progressBarContainer.style.display = 'none';
-          // Show the container
-          container.style.display = 'block';
-        }
-      );
-
-
-
-
-
-
-
-
-
 
 
 const loader = new GLTFLoader(loadingManager);
