@@ -11,10 +11,7 @@ let camera;
 let composer, renderer, mixer, clock;
 
 
-   // Get references to the loading screen, progress bar, and container elements
-   const loadingScreen = document.getElementById('loading-screen');
-   const progressBarContainer = document.getElementById('progress-bar-container');
-   const progressBar = document.getElementById('progress-bar');
+
   
 
 
@@ -89,6 +86,40 @@ scene.add( camera );
 
 
 
+class ProgressBar {
+    constructor(parentElement) {
+      this.parent = parentElement;
+      this.container = document.createElement('div');
+      this.progressBar = document.createElement('div');
+
+      this.container.className = 'progress-container';
+      this.progressBar.className = 'progress-bar';
+
+      this.container.appendChild(this.progressBar);
+      this.parent.appendChild(this.container);
+    }
+
+    update(progress) {
+      this.progressBar.style.width = `${progress * 100}%`;
+    }
+
+    hide() {
+      this.container.style.display = 'none';
+    }
+  }
+
+  const progressBar = new ProgressBar(document.body);
+
+  const manager = new THREE.LoadingManager();
+  manager.onProgress = function (item, loaded, total) {
+    const progress = loaded / total;
+    progressBar.update(progress);
+  };
+
+
+
+
+
 
 
 
@@ -147,31 +178,10 @@ composer.addPass( outputPass );
 
 
 
-  // Create a LoadingManager
-  const loadingManager = new THREE.LoadingManager(
-    // OnProgress callback is called for each loaded item
-    (item, loaded, total) => {
-      // Calculate the loading progress percentage
-      const progress = loaded / total;
-      // Update the width of the progress bar
-      progressBar.style.width = `calc(${progress * 100}% - 1px)`;
-    },
-    // OnLoad callback is called when all resources are loaded
-    () => {
-      // Hide the loading screen and progress bar
-      loadingScreen.style.display = 'none';
-      progressBarContainer.style.display = 'none';
-      // Show the container
-      //container.style.display = 'block';
-    }
-  );
 
 
 
-
-
-
-new RGBELoader(loadingManager).load( './sky.hdr', function ( texture ) {
+new RGBELoader(manager).load( './sky.hdr', function ( texture ) {
 
 		texture.mapping = THREE.EquirectangularReflectionMapping;
         
@@ -182,7 +192,7 @@ new RGBELoader(loadingManager).load( './sky.hdr', function ( texture ) {
 		render(); });
 
 
-const loader = new GLTFLoader(loadingManager);
+const loader = new GLTFLoader(manager);
         let currentModel;
         const modelPaths = [
             'muho.glb',
@@ -215,6 +225,7 @@ const loader = new GLTFLoader(loadingManager);
                 mixer.clipAction( animation ).play(); }	}
 
                 animate();   
+                
             });
         }
 
@@ -237,7 +248,7 @@ const loader = new GLTFLoader(loadingManager);
 // scene.add( model2 );
 // } );
 
-new GLTFLoader(loadingManager).load( './frame.glb', function ( gltf ) {
+new GLTFLoader(manager).load( './frame.glb', function ( gltf ) {
     const model3 = gltf.scene;
     scene.add( model3 );
     
@@ -252,7 +263,7 @@ new GLTFLoader(loadingManager).load( './frame.glb', function ( gltf ) {
     
     } );
 
-    new GLTFLoader(loadingManager).load( './glass.glb', function ( gltf ) {
+    new GLTFLoader(manager).load( './glass.glb', function ( gltf ) {
 
       
         const model4 = gltf.scene;
@@ -298,6 +309,9 @@ new GLTFLoader(loadingManager).load( './frame.glb', function ( gltf ) {
 // 	renderer.toneMappingExposure = Math.pow( value, 4.0 );
 
 // } );
+
+
+
 
 window.addEventListener( 'resize', onWindowResize );
 
