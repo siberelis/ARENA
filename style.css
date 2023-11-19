@@ -86,8 +86,9 @@ margin: 5px;
 
 #progress-bar {
   height: 100%;
-  width: 0;
+  width: 0; /* Set initial width to 0 */
   background-color: #4caf50;
+  transition: width 0.3s; /* Add smooth transition for width changes */
 }
 
 #container {
