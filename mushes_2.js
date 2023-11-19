@@ -5,11 +5,11 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
-// import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
-
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 
 let camera;
 let composer, renderer, mixer, clock;
+
 
 const params = {
 threshold: 1,
@@ -34,8 +34,11 @@ alpha: true
 } );
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth/1.2, window.innerWidth/1.2 );
-// renderer.toneMapping = THREE.ReinhardToneMapping;
-//	container.appendChild( renderer.domElement );
+
+// container.appendChild( renderer.domElement );
+
+// renderer.toneMapping = THREE.ACESFilmicToneMapping;
+// renderer.toneMappingExposure = -0.4;
 
 const scene = new THREE.Scene();
 
@@ -43,33 +46,36 @@ camera = new THREE.PerspectiveCamera( 50, 500 / 500, 1, 100 );
 camera.position.set( 0, 0, 10 );
 scene.add( camera );
 
-const textureLoader = new THREE.TextureLoader();
-const tex = textureLoader.load('./GRID_2.png');
-
-const hydraCanvas = document.getElementById('synth');
-const hydraTexture = new THREE.CanvasTexture(hydraCanvas);
 
 
 
-const planeGeometry = new THREE.PlaneGeometry(10, 10);
-const planeMaterial = new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide });
-const hydraPlane = new THREE.Mesh(planeGeometry, planeMaterial);
+// const textureLoader = new THREE.TextureLoader();
+// const tex = textureLoader.load('./GRID.png');
 
-// Move the plane back by 10 units
-hydraPlane.position.z = -2.7;
-//hydraPlane.rotation.y = 1.570796;
-
-
-//scene.add(hydraPlane);
+// const hydraCanvas = document.getElementById('synth');
+// const hydraTexture = new THREE.CanvasTexture(hydraCanvas);
 
 
 
-function updateTexture() {
-hydraTexture.needsUpdate = true;
-requestAnimationFrame(updateTexture);
-}
+// const planeGeometry = new THREE.PlaneGeometry(10, 10);
+// const planeMaterial = new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide });
+// const hydraPlane = new THREE.Mesh(planeGeometry, planeMaterial);
 
-updateTexture();
+
+// hydraPlane.position.z = -2.7;
+
+
+
+// //scene.add(hydraPlane);
+
+
+
+// function updateTexture() {
+// hydraTexture.needsUpdate = true;
+// requestAnimationFrame(updateTexture);
+// }
+
+// updateTexture();
 
 
 
@@ -129,14 +135,15 @@ composer.addPass( renderScene );
 composer.addPass( bloomPass );
 composer.addPass( outputPass );
 
-// new RGBELoader().load( './sky.hdr', function ( texture ) {
+new RGBELoader().load( './sky.hdr', function ( texture ) {
 
-// 		texture.mapping = THREE.EquirectangularReflectionMapping;
-
-// 		//scene.background = texture;
-// 		scene.environment = texture;
-
-// 		render(); });
+		texture.mapping = THREE.EquirectangularReflectionMapping;
+        
+        
+		//scene.background = texture;
+		scene.environment = texture;
+        
+		render(); });
 
 
 const loader = new GLTFLoader();
@@ -159,6 +166,10 @@ const loader = new GLTFLoader();
                 const model = gltf.scene;
                 scene.add(model);
                 currentModel = model;
+
+
+                model.position.set (0, 1, -1);
+                model.scale.set (0.5, 0.5, 0.5);
 
                 let animations = gltf.animations;
                 if ( animations && animations.length ) {
@@ -185,22 +196,42 @@ const loader = new GLTFLoader();
 
 // SINGLE MODEL LOADER
 
-new GLTFLoader().load( './icons.glb', function ( gltf ) {
-const model2 = gltf.scene;
-scene.add( model2 );
+// new GLTFLoader().load( './icons.glb', function ( gltf ) {
+// const model2 = gltf.scene;
+// scene.add( model2 );
+// } );
 
-// let animations = gltf.animations;
-// if ( animations && animations.length ) {
-// mixer = new THREE.AnimationMixer( model );
-// for ( let i = 0; i < animations.length; i ++ ) {
-// let animation = animations[ i ];
-// mixer.clipAction( animation ).play(); }	}
+new GLTFLoader().load( './frame.glb', function ( gltf ) {
+    const model3 = gltf.scene;
+    scene.add( model3 );
+    
+    // let animations = gltf.animations;
+    // if ( animations && animations.length ) {
+    // mixer = new THREE.AnimationMixer( model );
+    // for ( let i = 0; i < animations.length; i ++ ) {
+    // let animation = animations[ i ];
+    // mixer.clipAction( animation ).play(); }	}
+    
+    // animate();
+    
+    } );
 
-// animate();
+    new GLTFLoader().load( './glass.glb', function ( gltf ) {
 
-} );
-
-
+      
+        const model4 = gltf.scene;
+        scene.add( model4 );
+        
+        // let animations = gltf.animations;
+        // if ( animations && animations.length ) {
+        // mixer = new THREE.AnimationMixer( model4 );
+        // for ( let i = 0; i < animations.length; i ++ ) {
+        // let animation = animations[ i ];
+        // mixer.clipAction( animation ).play(); }	}
+        
+        animate();
+        
+        } );
 
 // const gui = new GUI();
 
@@ -258,8 +289,6 @@ const delta = clock.getDelta();
 
 
 mixer.update( delta );
-
-
 
 composer.render();
 
