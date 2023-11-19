@@ -11,6 +11,15 @@ let camera;
 let composer, renderer, mixer, clock;
 
 
+   // Get references to the loading screen, progress bar, and container elements
+   const loadingScreen = document.getElementById('loading-screen');
+   const progressBarContainer = document.getElementById('progress-bar-container');
+   const progressBar = document.getElementById('progress-bar');
+   const container = document.getElementById('container');
+
+
+//    container.appendChild( renderer.domElement );
+
 const params = {
 threshold: 1,
 strength: 0.2,
@@ -35,7 +44,7 @@ alpha: true
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth/1.2, window.innerWidth/1.2 );
 
-// container.appendChild( renderer.domElement );
+
 
 // renderer.toneMapping = THREE.ACESFilmicToneMapping;
 // renderer.toneMappingExposure = -0.4;
@@ -146,7 +155,42 @@ new RGBELoader().load( './sky.hdr', function ( texture ) {
 		render(); });
 
 
-const loader = new GLTFLoader();
+
+
+
+
+
+
+    // Create a LoadingManager
+    const loadingManager = new THREE.LoadingManager(
+        // OnProgress callback is called for each loaded item
+        (item, loaded, total) => {
+          // Calculate the loading progress percentage
+          const progress = loaded / total;
+          // Update the width of the progress bar
+          progressBar.style.width = `${progress * 100}%`;
+        },
+        // OnLoad callback is called when all resources are loaded
+        () => {
+          // Hide the loading screen and progress bar
+          loadingScreen.style.display = 'none';
+          progressBarContainer.style.display = 'none';
+          // Show the container
+          container.style.display = 'block';
+        }
+      );
+
+
+
+
+
+
+
+
+
+
+
+const loader = new GLTFLoader(loadingManager);
         let currentModel;
         const modelPaths = [
             'muho.glb',
@@ -201,7 +245,7 @@ const loader = new GLTFLoader();
 // scene.add( model2 );
 // } );
 
-new GLTFLoader().load( './frame.glb', function ( gltf ) {
+new GLTFLoader(loadingManager).load( './frame.glb', function ( gltf ) {
     const model3 = gltf.scene;
     scene.add( model3 );
     
@@ -216,7 +260,7 @@ new GLTFLoader().load( './frame.glb', function ( gltf ) {
     
     } );
 
-    new GLTFLoader().load( './glass.glb', function ( gltf ) {
+    new GLTFLoader(loadingManager).load( './glass.glb', function ( gltf ) {
 
       
         const model4 = gltf.scene;
